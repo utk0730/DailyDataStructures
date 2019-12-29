@@ -15,25 +15,23 @@ const threelargestnum1 = arr =>
 /********** Solution 2 - start *************/
 //time complexity - O(n)
 //space complexity - O(1)
-// this solution is still in progress
-const swapandupdate = (res, intialIdx) => {
-  for (var i = intialIdx; i < res.length - 1; i++) {
-    res[i + 1] = res[i];
-  }
-};
-const threelargestnum2 = arr => {
-  const res = [-Infinity, -Infinity, -Infinity];
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > res[0]) {
-      swapandupdate(res, 0);
-      res[0] = arr[i];
-    } else if (arr[i] > res[1]) {
-      swapandupdate(res, 1);
-      res[1] = arr[i];
-    } else if (arr[i] > res[2]) {
-      res[2] = arr[i];
+const swapandupdate = (arr, res, idx) => {
+  for (let i = 0; i < res.length; i++) {
+    if (i == idx) res[i] = arr[i];
+    else {
+      res[i + 1] = res[i];
     }
   }
+  console.log(res);
+};
+const threelargestnum2 = arr => {
+  const res = [null, null, null];
+  for (let i = 1; i < arr.length; i++) {
+    if (!res[0] && arr[i] > res[0]) swapandupdate(arr, res, 0);
+    else if (!res[1] && arr[i] > res[1]) swapandupdate(arr, res, 1);
+    else if (!res[2] && arr[i] > res[2]) swapandupdate(arr, res, 1);
+  }
+
   return res;
 };
 
@@ -42,4 +40,4 @@ const threelargestnum2 = arr => {
 //inputs
 let narr = [141, 150, 170];
 const arr = [141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7];
-console.log(threelargestnum1(narr));
+console.log(threelargestnum1(arr));
