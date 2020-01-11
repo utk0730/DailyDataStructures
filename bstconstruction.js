@@ -5,10 +5,16 @@ class node {
     this.right = null;
   }
 }
+
+// time complexity  : avaerage time - O(log (n))
+//                    worst time - O(n), in case of linear bst
+// space complexity : O(1) // if implemented iteratively
+//                 : O(n) // if implemented recursively , due to call stack
 class bst {
   constructor() {
     this.root = null;
   }
+  // this is an iterative approach
   insert(value) {
     const newNode = new node(value);
     let current = this.root;
