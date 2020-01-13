@@ -105,6 +105,15 @@ class bst {
 
     console.log(this.root);
   }
+  findClosestValueInBst(target) {
+    let closest = +Infinity,
+      current = this.root;
+    while (current) {
+      if (current.value === target) return current.value;
+      if (current.value < Math.abs(target - current.value)) {
+      }
+    }
+  }
 }
 
 const bstree = new bst();
