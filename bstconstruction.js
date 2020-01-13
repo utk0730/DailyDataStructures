@@ -105,14 +105,22 @@ class bst {
 
     console.log(this.root);
   }
-  findClosestValueInBst(target) {
+  findClosestValueInBst(targetSum) {
     let closest = +Infinity,
       current = this.root;
+    if (!current) return null;
     while (current) {
-      if (current.value === target) return current.value;
-      if (current.value < Math.abs(target - current.value)) {
+      if (current.value === targetSum) return current.value;
+      if (Math.abs(current.value - targetSum) < Math.abs(closest - targetSum)) {
+        closest = current.value;
+      }
+      if (current.value < closest) {
+        current = current.right;
+      } else {
+        current = current.right;
       }
     }
+    return closest;
   }
 }
 
@@ -124,4 +132,4 @@ bstree.insert(3);
 bstree.insert(8);
 bstree.insert(20);
 
-bstree.removeNode(10);
+console.log(bstree.findClosestValueInBst(14));
