@@ -55,6 +55,56 @@ class bst {
     }
     return null;
   }
+
+  //In progress - it is not easy as it appears
+  removeNode(value) {
+    if (this.root === null) return null;
+    let current = this.root,
+      parentNode = null;
+
+    // *******to find node and its parent node*****//
+    while (current) {
+      if (value < current.value) {
+        parentNode = current;
+        current = current.left;
+      } else if (value > current.value) {
+        parentNode = current;
+        current = current.right;
+      } else {
+        break;
+      }
+    }
+    console.log("node to remove", current);
+    console.log("parent node", parentNode);
+    //*************find node *********************//
+
+    //handling root node deletion. for root node, parent node will be null
+    if (parentNode === null) {
+      if (current.left !== null) {
+        let temp = this.root;
+        this.root = current.left;
+        this.root.right = current.left.right ? current.left.right : temp.right;
+      }
+    }
+
+    //handling deletion of a leaf node
+    if (current.left === null && current.right === null) {
+      if (parentNode.left && parentNode.left.value === current.value) {
+        parentNode.left = null;
+      } else if (parentNode.right && parentNode.right.value === current.value) {
+        parentNode.right = null;
+      }
+    }
+
+    //handleing deletion of a node having only one child
+    if (current.left !== null && current.right === null) {
+      parentNode.left = current.left;
+    } else if (current.right !== null && current.left === null) {
+      parentNode.right = current.right;
+    }
+
+    console.log(this.root);
+  }
 }
 
 const bstree = new bst();
@@ -65,4 +115,4 @@ bstree.insert(3);
 bstree.insert(8);
 bstree.insert(20);
 
-console.log(bstree.findNode(200));
+bstree.removeNode(10);
