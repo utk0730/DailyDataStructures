@@ -56,6 +56,29 @@ class bst {
     return null;
   }
 
+  //helper function to find minimum value in right subtree of a node
+  findMinNodeinRightSubTree(node) {
+    while (node) {
+      node = node.left;
+    }
+    return node;
+  }
+  //helper function to find max value in left subtree
+  findMaxNodeinRightSubTree(node) {
+    while (node) {
+      node = node.right;
+    }
+    return node;
+  }
+
+  //       10
+  //     /   \
+  //    6     15
+  //   / \    / \
+  //  3  8   14  16
+  //    / \      / \
+  //   7  9     17  18
+
   //In progress - it is not easy as it appears
   removeNode(value) {
     if (this.root === null) return null;
@@ -78,33 +101,40 @@ class bst {
     console.log("parent node", parentNode);
     //*************find node *********************//
 
-    //handling root node deletion. for root node, parent node will be null
+    //case 1 : handling root node deletion. for root node, parent node will be null
     if (parentNode === null) {
-      if (current.left !== null) {
-        let temp = this.root;
-        this.root = current.left;
-        this.root.right = current.left.right ? current.left.right : temp.right;
-      }
+      //todo
     }
 
-    //handling deletion of a leaf node
+    //case 2 : handling deletion of a node, which has both left and right child
+    if (current.left !== null && current.right !== null) {
+      console.log(this.findMinNodeinRightSubTree);
+      const sNode = findMinNodeinRightSubTree(current.right);
+      console.log(sNode);
+      return;
+    }
+
+    //case 3 : handling deletion of a leaf node
     if (current.left === null && current.right === null) {
-      if (parentNode.left && parentNode.left.value === current.value) {
+      if (parentNode.left.value === current.value) {
         parentNode.left = null;
-      } else if (parentNode.right && parentNode.right.value === current.value) {
+      } else if (parentNode.right.value === current.value) {
         parentNode.right = null;
       }
     }
-
-    //handleing deletion of a node having only one child
-    if (current.left !== null && current.right === null) {
+    // case 4: handleing deletion of a node having only one child
+    if (current.left !== null) {
       parentNode.left = current.left;
-    } else if (current.right !== null && current.left === null) {
+      current.left = null;
+    } else if (current.right !== null) {
       parentNode.right = current.right;
+      current.right = null;
     }
 
     console.log(this.root);
   }
+
+  // finding closest value in BST
   findClosestValueInBst(targetSum) {
     let closest = +Infinity,
       current = this.root;
@@ -122,6 +152,21 @@ class bst {
     }
     return closest;
   }
+
+  // find whether it is a valid bst
+  //bst helper function
+  validateHelper(node, min, max) {
+    if (node === null) return true;
+    if (node.value < min && node.value > max) return false;
+    return (
+      this.validateHelper(node.left, min, node.value) &&
+      this.validateHelper(node.right, node.value, max)
+    );
+  }
+  //bst main function
+  validateBst(node) {
+    this.validateHelper(node, -Infinity, +Infinity);
+  }
 }
 
 const bstree = new bst();
@@ -132,4 +177,6 @@ bstree.insert(3);
 bstree.insert(8);
 bstree.insert(20);
 
-console.log(bstree.findClosestValueInBst(14));
+// console.log(bstree.findClosestValueInBst(14));
+console.log(bstree.root);
+// console.log(bstree.validateBst(bstree.node));
