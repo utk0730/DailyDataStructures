@@ -17,3 +17,20 @@ const maxsubsetsum = arr => {
   return maxSum[maxSum.length - 1];
 };
 console.log(maxsubsetsum([75, 105, 120, 75, 90, 135]));
+
+// Time complexity - O(n)
+// Space complexity - O(1)
+
+//Dynamic problem set
+const maxsubsetsum1 = arr => {
+  let first = arr[0],
+    second = Math.max(arr[0], arr[1]),
+    current; // assuming array is of length >=2
+  for (let i = 2; i < arr.length; i++) {
+    current = Math.max(second, first + arr[i]);
+    first = second;
+    second = current;
+  }
+  return current;
+};
+console.log(maxsubsetsum1([75, 105, 120, 75, 90, 135]));
