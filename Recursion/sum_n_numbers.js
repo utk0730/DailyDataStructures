@@ -9,7 +9,7 @@ const sumType1 = (num, currentSum) => {
   return sumType1(num - 1, num + currentSum);
 };
 
-console.log(sumType1(ip, 0)); // true
+console.log(sumType1(ip, 0) === op); // true
 
 // Functional recursion
 const sumType2 = (num) => {
@@ -19,4 +19,4 @@ const sumType2 = (num) => {
   return num + sumType2(num - 1);
 };
 
-console.log(sumType2(ip)); // true
+console.log(sumType2(ip) === op); // true
